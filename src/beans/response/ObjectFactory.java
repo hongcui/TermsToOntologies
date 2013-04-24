@@ -32,6 +32,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+	/*
     private final static QName _AccessDate_QNAME = new QName("http://bioontology.org/bioportal/classBeanSchema#", "accessDate");
     private final static QName _Label_QNAME = new QName("http://bioontology.org/bioportal/classBeanSchema#", "label");
     private final static QName _FullId_QNAME = new QName("http://bioontology.org/bioportal/classBeanSchema#", "fullId");
@@ -39,6 +40,14 @@ public class ObjectFactory {
     private final static QName _AccessedResource_QNAME = new QName("http://bioontology.org/bioportal/classBeanSchema#", "accessedResource");
     private final static QName _Int_QNAME = new QName("http://bioontology.org/bioportal/classBeanSchema#", "int");
     private final static QName _ClassBeanType_QNAME = new QName("http://bioontology.org/bioportal/classBeanSchema#", "type");
+	*/
+	private final static QName _AccessDate_QNAME = new QName("accessDate");
+    private final static QName _Label_QNAME = new QName("label");
+    private final static QName _FullId_QNAME = new QName("fullId");
+    private final static QName _Id_QNAME = new QName("id");
+    private final static QName _AccessedResource_QNAME = new QName("accessedResource");
+    private final static QName _Int_QNAME = new QName("int");
+    private final static QName _ClassBeanType_QNAME = new QName("type");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: beans
@@ -99,7 +108,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "accessDate")
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "accessDate")
+    @XmlElementDecl(namespace = "", name = "accessDate")
     public JAXBElement<String> createAccessDate(String value) {
         return new JAXBElement<String>(_AccessDate_QNAME, String.class, null, value);
     }
@@ -108,7 +118,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "label")
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "label")
+    @XmlElementDecl(namespace = "", name = "label")
     public JAXBElement<String> createLabel(String value) {
         return new JAXBElement<String>(_Label_QNAME, String.class, null, value);
     }
@@ -117,7 +128,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "fullId")
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "fullId")
+    @XmlElementDecl(namespace = "", name = "fullId")
     public JAXBElement<String> createFullId(String value) {
         return new JAXBElement<String>(_FullId_QNAME, String.class, null, value);
     }
@@ -126,7 +138,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "id")
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "id")
+    @XmlElementDecl(namespace = "", name = "id")
     public JAXBElement<String> createId(String value) {
         return new JAXBElement<String>(_Id_QNAME, String.class, null, value);
     }
@@ -135,7 +148,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "accessedResource")
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "accessedResource")
+    @XmlElementDecl(namespace = "", name = "accessedResource")
     public JAXBElement<String> createAccessedResource(String value) {
         return new JAXBElement<String>(_AccessedResource_QNAME, String.class, null, value);
     }
@@ -144,7 +158,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "int")
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "int")
+    @XmlElementDecl(namespace = "", name = "int")
     public JAXBElement<BigInteger> createInt(BigInteger value) {
         return new JAXBElement<BigInteger>(_Int_QNAME, BigInteger.class, null, value);
     }
@@ -153,7 +168,8 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "type", scope = ClassBean.class)
+    //@XmlElementDecl(namespace = "http://bioontology.org/bioportal/classBeanSchema#", name = "type", scope = ClassBean.class)
+    @XmlElementDecl(namespace = "", name = "type", scope = ClassBean.class)
     public JAXBElement<String> createClassBeanType(String value) {
         return new JAXBElement<String>(_ClassBeanType_QNAME, String.class, ClassBean.class, value);
     }
