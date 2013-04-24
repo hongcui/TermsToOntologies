@@ -49,12 +49,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "classBean")
 public class ClassBean {
 
-    @XmlElementRefs({
+    /*@XmlElementRefs({
         @XmlElementRef(name = "fullId", namespace = "http://bioontology.org/bioportal/classBeanSchema#", type = JAXBElement.class),
         @XmlElementRef(name = "label", namespace = "http://bioontology.org/bioportal/classBeanSchema#", type = JAXBElement.class),
         @XmlElementRef(name = "type", namespace = "http://bioontology.org/bioportal/classBeanSchema#", type = JAXBElement.class),
         @XmlElementRef(name = "relations", namespace = "http://bioontology.org/bioportal/classBeanSchema#", type = Relations.class),
         @XmlElementRef(name = "id", namespace = "http://bioontology.org/bioportal/classBeanSchema#", type = JAXBElement.class)
+    })*/
+    @XmlElementRefs({
+	    @XmlElementRef(name = "fullId", namespace = "", type = JAXBElement.class),
+	    @XmlElementRef(name = "label", namespace = "", type = JAXBElement.class),
+	    @XmlElementRef(name = "type", namespace = "", type = JAXBElement.class),
+	    @XmlElementRef(name = "relations", namespace = "", type = Relations.class),
+	    @XmlElementRef(name = "id", namespace = "", type = JAXBElement.class)
     })
     protected List<Object> fullIdOrIdOrLabel;
 
