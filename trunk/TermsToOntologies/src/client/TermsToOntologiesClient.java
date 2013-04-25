@@ -3,6 +3,7 @@ package client;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.bind.JAXBElement;
 
@@ -19,10 +20,13 @@ public class TermsToOntologiesClient {
 	private BioPortalClient bioPortalClient;
 	private Logger logger;
 	
-	public TermsToOntologiesClient() {
-		String url = "http://rest.bioontology.org/bioportal/";
-		String userId = "40522";
-		String apiKey = "b5ca12b0-23f8-4627-be61-1e045cf73a7d";
+	public TermsToOntologiesClient() throws Exception {
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		Properties properties = new Properties(); 
+		properties.load(loader.getResourceAsStream("config.properties"));
+		String url = properties.getProperty("bioportalUrl");
+		String userId = properties.getProperty("bioportalUserId");
+		String apiKey = properties.getProperty("bioportalApiKey");
 		bioPortalClient = new BioPortalClient(url, userId, apiKey);	
 		logger =  LoggerFactory.getLogger(this.getClass());
 	}
@@ -34,9 +38,9 @@ public class TermsToOntologiesClient {
 	 */
 	public String sendTerm(ProvisionalTerm provisionalTerm) throws Exception {
 		Success success = bioPortalClient.createProvisionalTerm(provisionalTerm);
-		String temporaryId = getIdFromSuccessfulCreate(success);
+		String temporaryId = getIdFromSuccessfulCreate(success, "id");
 		provisionalTerm.setTemporaryid(temporaryId);
-		ProvisionalTermDAO.getInstance().add(provisionalTerm);
+		ProvisionalTermDAO.getInstance().addAwaitingAdoption(provisionalTerm);
 		return temporaryId;
 	}
 	
@@ -46,25 +50,33 @@ public class TermsToOntologiesClient {
 	 */
 	public Map<String, String> checkTermAdoptions() throws Exception  {
 		Map<String, String> result = new HashMap<String, String>();
-		List<ProvisionalTerm> allProvisionalTerms = ProvisionalTermDAO.getInstance().getAll();
-		for(ProvisionalTerm provisionalTerm : allProvisionalTerms) {
+		List<ProvisionalTerm> allProvisionalTermsAwaitingAdoption = ProvisionalTermDAO.getInstance().getAllAwaitingAdoption();
+		for(ProvisionalTerm provisionalTerm : allProvisionalTermsAwaitingAdoption) {
 			Success success = bioPortalClient.getProvisionalTerm(provisionalTerm.getTemporaryid());
-			
+			String permanentId = getIdFromSuccessfulCreate(success, "id");
+			String temporaryId = getIdFromSuccessfulCreate(success, "fullId");
+			if(permanentId.equals(temporaryId))
+				continue;
+			else {
+				provisionalTerm.setPermanentid(permanentId);
+				ProvisionalTermDAO.getInstance().deleteAwaitingAdoption(provisionalTerm);
+				ProvisionalTermDAO.getInstance().storeAdopted(provisionalTerm);
+				result.put(temporaryId, permanentId);
+			}
 		}
 		return result;
 	}
 	
-	private String getIdFromSuccessfulCreate(Success createSuccess) {
+	private String getIdFromSuccessfulCreate(Success createSuccess, String idName) {
 		List<Object> fullIdOrIdOrLabel = createSuccess.getData().getClassBean().getFullIdOrIdOrLabel();
 		for(Object object : fullIdOrIdOrLabel) {
 			if(object instanceof JAXBElement) {
 				JAXBElement<String> possibleIdElement = (JAXBElement<String>)object;
-				if(possibleIdElement.getName().toString().equals("id")) {
+				if(possibleIdElement.getName().toString().equals(idName)) {
 					return possibleIdElement.getValue();
 				}
 			}
 		}
 		return null;
 	}
-
 }
