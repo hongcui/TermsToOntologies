@@ -3,7 +3,6 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -28,6 +27,10 @@ public abstract class AbstractDAO {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.execute();
 		return preparedStatement;
+	}
+	
+	public PreparedStatement prepareStatement(String sql) throws SQLException {
+		return connection.prepareStatement(sql);
 	}
 	
 	public void openConnection() throws SQLException {
