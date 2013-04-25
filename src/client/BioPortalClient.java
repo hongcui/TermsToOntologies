@@ -191,7 +191,14 @@ public class BioPortalClient {
 		String apiKey = "b5ca12b0-23f8-4627-be61-1e045cf73a7d";
 		BioPortalClient bioPortalClient = new BioPortalClient(url, userId, apiKey);	
 		
-		System.out.println("Provide a new term: ");
+		for(int i=0; i<56; i++) {
+			Filter filter = new Filter();
+			filter.setPageSize("279");
+			filter.setPageNum(String.valueOf(i));
+			Success success = bioPortalClient.getProvisionalTerms(filter);
+		}
+		
+		/*System.out.println("Provide a new term: ");
 		ProvisionalTerm provisionalTerm = new ProvisionalTerm();
 		provisionalTerm.setPreferredname("test name");
 		provisionalTerm.setDefinition("this is a test definition");
@@ -221,6 +228,6 @@ public class BioPortalClient {
 		}
 		
 		System.out.println("All the terms provided by this userId. The provided term should have disappeared.");
-		Success getSuccess3 = bioPortalClient.getProvisionalTerms(filter); 
+		Success getSuccess3 = bioPortalClient.getProvisionalTerms(filter); */
 	}
 }

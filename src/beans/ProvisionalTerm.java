@@ -2,6 +2,7 @@ package beans;
 
 public class ProvisionalTerm {
 
+	private String temporaryid;
 	private String permanentid;
 	private String superclass;
 	private String submittedby;
@@ -12,10 +13,10 @@ public class ProvisionalTerm {
 	
 	public ProvisionalTerm() { }
 	
-	public ProvisionalTerm(String permanentid, String superclass,
+	public ProvisionalTerm(String temporaryid, String permanentid, String superclass,
 			String submittedby, String definition, String ontologyids,
 			String preferredname, String synonyms) {
-		super();
+		this.temporaryid = temporaryid;
 		this.permanentid = permanentid;
 		this.superclass = superclass;
 		this.submittedby = submittedby;
@@ -104,4 +105,22 @@ public class ProvisionalTerm {
 	public boolean hasSynonyms() {
 		return this.synonyms != null;
 	}
+	
+	public boolean hasTemporaryId() {
+		return this.temporaryid != null;
+	}
+
+	public String getTemporaryid() {
+		return temporaryid;
+	}
+
+	public void setTemporaryid(String temporaryid) {
+		this.temporaryid = temporaryid;
+	}
+
+	public void setSynonyms(String synonyms) {
+		this.synonyms = synonyms;
+	}
+	
+	
 }
